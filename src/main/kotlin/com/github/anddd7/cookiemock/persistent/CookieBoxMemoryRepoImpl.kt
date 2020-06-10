@@ -15,10 +15,8 @@ class CookieBoxMemoryRepoImpl : CookieBoxRepository {
   private val db = ConcurrentHashMap<UUID, CookieBox>()
 
   override suspend fun save(cookieBox: CookieBox): CookieBox {
-    if (cookieBox.isNew()) {
-      cookieBox.uuid = UUID.randomUUID()
-    }
-    db[cookieBox.uuid] = cookieBox
+    val uuid = cookieBox.uuid ?: UUID.randomUUID()
+    db[uuid] = cookieBox.copy(uuid = uuid)
     return cookieBox
   }
 

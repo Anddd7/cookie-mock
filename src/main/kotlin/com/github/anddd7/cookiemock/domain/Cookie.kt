@@ -5,16 +5,12 @@ import org.springframework.http.HttpMethod
 import org.springframework.web.reactive.function.server.RequestPredicate
 import java.util.UUID
 
-val EmptyUUID: UUID = UUID.fromString("empty")
-
 data class CookieBox(
-  var uuid: UUID = EmptyUUID,
+  var uuid: UUID? = null,
   val cookies: List<Cookie>,
   val method: HttpMethod,
   val urlPattern: String
-) {
-  fun isNew() = uuid == EmptyUUID
-}
+)
 
 data class Cookie(
   val name: String,

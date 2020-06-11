@@ -2,19 +2,18 @@ package com.github.anddd7.cookiemock.domain
 
 import kotlinx.coroutines.flow.Flow
 import org.springframework.http.HttpMethod
-import org.springframework.web.reactive.function.server.RequestPredicate
 import java.util.UUID
 
 data class CookieBox(
   var uuid: UUID? = null,
-  val cookies: List<Cookie>,
   val method: HttpMethod,
-  val urlPattern: String
+  val urlPattern: String,
+  val cookies: List<Cookie>
 )
 
 data class Cookie(
   val name: String,
-  val condition: RequestPredicate,
+  val condition: CookieCondition,
   val body: String
 )
 

@@ -1,6 +1,5 @@
 package com.github.anddd7.cookiemock.configuration
 
-import com.github.anddd7.cookiemock.domain.MockService
 import com.github.anddd7.cookiemock.handler.CookieHandler
 import com.github.anddd7.cookiemock.handler.MockHandler
 import org.springframework.context.annotation.Bean
@@ -31,6 +30,6 @@ class RouterConfigure {
   }
 
   private fun mockRoutes(mockHandler: MockHandler) = coRouter {
-    path(MockService.basePath + "/**", mockHandler::route)
+    path(MockHandler.basePath + "/**", mockHandler::route)
   }
 }

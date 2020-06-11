@@ -30,5 +30,5 @@ interface CookieRepository {
   suspend fun delete(uuid: UUID)
   fun findAll(): Flow<Cookie>
 
-  suspend fun getByBoxId(uuid: UUID): List<Cookie>
+  suspend fun getByBoxId(uuid: UUID): Flow<Cookie>
 }

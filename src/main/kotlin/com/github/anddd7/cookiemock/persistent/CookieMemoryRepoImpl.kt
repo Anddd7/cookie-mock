@@ -30,4 +30,10 @@ class CookieMemoryRepoImpl : CookieRepository {
   override fun findAll(): Flow<Cookie> = flow {
     db.values.forEach { emit(it) }
   }
+
+  override suspend fun getByBoxId(uuid: UUID): Flow<Cookie> = flow {
+    db.values
+      .filter { it.boxId == uuid }
+      .forEach { emit(it) }
+  }
 }

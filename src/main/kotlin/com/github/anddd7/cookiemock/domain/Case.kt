@@ -4,22 +4,22 @@ import kotlinx.coroutines.flow.Flow
 import org.springframework.http.HttpMethod
 import java.util.UUID
 
-data class CookieBox(
+data class Cookie(
   var uuid: UUID? = null,
   val method: HttpMethod,
   val urlPattern: String,
-  val cookies: List<Cookie>
+  val cases: List<Case>
 )
 
-data class Cookie(
+data class Case(
   val name: String,
   val condition: String,
   val body: String
 )
 
-interface CookieBoxRepository {
-  suspend fun save(cookieBox: CookieBox): CookieBox
-  suspend fun get(uuid: UUID): CookieBox
+interface CookieRepository {
+  suspend fun save(cookie: Cookie): Cookie
+  suspend fun get(uuid: UUID): Cookie
   suspend fun delete(uuid: UUID)
-  fun findAll(): Flow<CookieBox>
+  fun findAll(): Flow<Cookie>
 }

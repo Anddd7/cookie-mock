@@ -1,6 +1,6 @@
 package com.github.anddd7.cookiemock.handler
 
-import com.github.anddd7.cookiemock.domain.CookieBoxRepository
+import com.github.anddd7.cookiemock.domain.CookieRepository
 import com.github.anddd7.cookiemock.domain.CookieService
 import com.github.anddd7.cookiemock.handler.command.SaveCookieBoxCommand
 import kotlinx.coroutines.reactive.awaitFirst
@@ -16,10 +16,10 @@ import java.util.UUID
 
 @Component
 class CookieHandler(
-  cookieBoxRepository: CookieBoxRepository
+  cookieRepository: CookieRepository
 ) {
   private val cookieService: CookieService by lazy {
-    CookieService(cookieBoxRepository)
+    CookieService(cookieRepository)
   }
 
   suspend fun getById(request: ServerRequest): ServerResponse {

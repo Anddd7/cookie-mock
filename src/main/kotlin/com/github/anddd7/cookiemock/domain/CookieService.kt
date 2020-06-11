@@ -3,16 +3,16 @@ package com.github.anddd7.cookiemock.domain
 import java.util.UUID
 
 class CookieService(
-  private val cookieBoxRepository: CookieBoxRepository
+  private val cookieRepository: CookieRepository
 ) {
-  suspend fun getById(uuid: UUID) = cookieBoxRepository.get(uuid)
+  suspend fun getById(uuid: UUID) = cookieRepository.get(uuid)
 
-  fun findAll() = cookieBoxRepository.findAll()
+  fun findAll() = cookieRepository.findAll()
 
-  suspend fun save(cookieBox: CookieBox) =
-    cookieBoxRepository.save(cookieBox)
+  suspend fun save(cookie: Cookie) =
+    cookieRepository.save(cookie)
 
   suspend fun delete(uuid: UUID) {
-    cookieBoxRepository.delete(uuid)
+    cookieRepository.delete(uuid)
   }
 }

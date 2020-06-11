@@ -1,5 +1,6 @@
-package com.github.anddd7.cookiemock.router
+package com.github.anddd7.cookiemock.configuration
 
+import com.github.anddd7.cookiemock.domain.MockService
 import com.github.anddd7.cookiemock.handler.CookieHandler
 import com.github.anddd7.cookiemock.handler.MockHandler
 import org.springframework.context.annotation.Bean
@@ -21,14 +22,15 @@ class RouterConfigure {
     "/api".nest {
       "/cookie".nest {
         GET("/", cookieHandler::findAll)
+        POST("/", cookieHandler::create)
         GET("/{id}", cookieHandler::getById)
+        POST("/{id}", cookieHandler::save)
         DELETE("/{id}", cookieHandler::delete)
-        POST("/", cookieHandler::save)
       }
     }
   }
 
   private fun mockRoutes(mockHandler: MockHandler) = coRouter {
-    path(mockHandler.basePath + "/**", mockHandler::route)
+    path(MockService.basePath + "/**", mockHandler::route)
   }
 }

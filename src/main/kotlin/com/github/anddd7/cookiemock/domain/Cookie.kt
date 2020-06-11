@@ -13,7 +13,7 @@ data class CookieBox(
 
 data class Cookie(
   val name: String,
-  val condition: CookieCondition,
+  val condition: String,
   val body: String
 )
 

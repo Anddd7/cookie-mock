@@ -1,13 +1,13 @@
 package com.github.anddd7.cookiemock.util
 
 import com.github.anddd7.cookiemock.domain.CookieBox
-import com.github.anddd7.cookiemock.domain.CookieCondition
 import org.springframework.web.reactive.function.server.RequestPredicate
 import org.springframework.web.reactive.function.server.RequestPredicates.method
 import org.springframework.web.reactive.function.server.RequestPredicates.path
 
 object RequestPredicateUtil {
-  fun build(condition: CookieCondition): RequestPredicate {
+  fun build(condition: String): RequestPredicate {
+    // TODO build a customer dsl or language
     TODO()
   }
 

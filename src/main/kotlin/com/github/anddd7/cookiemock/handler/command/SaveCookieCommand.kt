@@ -2,29 +2,31 @@ package com.github.anddd7.cookiemock.handler.command
 
 import com.github.anddd7.cookiemock.domain.Case
 import com.github.anddd7.cookiemock.domain.Cookie
-import com.github.anddd7.cookiemock.domain.CookieCondition
 import org.springframework.http.HttpMethod
+import java.util.UUID
 
-data class SaveCookieBoxCommand(
+data class SaveCookieCommand(
+  val boxId: UUID,
   val method: HttpMethod,
   val urlPattern: String,
-  val cookies: List<SaveCookieCommand>
+  val cookies: List<SaveCaseCommand>
 ) {
   fun toCookieBox() = Cookie(
+    boxId = boxId,
     method = method,
     urlPattern = urlPattern,
-    cases = cookies.map(SaveCookieCommand::toCookie)
+    cases = cookies.map(SaveCaseCommand::toCase)
   )
 }
 
-data class SaveCookieCommand(
+data class SaveCaseCommand(
   val name: String,
-  val condition: CookieCondition,
+  val condition: String,
   val body: String
 ) {
-  fun toCookie() = Case(
-    name,
-    condition,
-    body
+  fun toCase() = Case(
+    name = name,
+    condition = condition,
+    body = body
   )
 }

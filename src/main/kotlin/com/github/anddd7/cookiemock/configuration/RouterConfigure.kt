@@ -30,6 +30,6 @@ class RouterConfigure {
   }
 
   private fun mockRoutes(mockHandler: MockHandler) = coRouter {
-    path(MockHandler.basePath + "/**", mockHandler::route)
+    path("/mock/{boxId}/**", mockHandler::route)
   }
 }

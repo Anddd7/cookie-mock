@@ -2,7 +2,7 @@ package com.github.anddd7.cookiemock.handler
 
 import com.github.anddd7.cookiemock.domain.CookieRepository
 import com.github.anddd7.cookiemock.domain.CookieService
-import com.github.anddd7.cookiemock.handler.command.SaveCookieBoxCommand
+import com.github.anddd7.cookiemock.handler.command.SaveCookieCommand
 import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -36,7 +36,7 @@ class CookieHandler(
   suspend fun create(request: ServerRequest): ServerResponse = save(request)
 
   suspend fun save(request: ServerRequest): ServerResponse {
-    val command = request.bodyToMono<SaveCookieBoxCommand>().awaitFirst()
+    val command = request.bodyToMono<SaveCookieCommand>().awaitFirst()
     val uuid = request.pathVariables()["id"]?.let { UUID.fromString(it) }
     val cookieBoxes = cookieService.save(command.toCookieBox().copy(uuid = uuid))
     return ok().bodyValueAndAwait(cookieBoxes)

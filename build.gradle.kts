@@ -26,11 +26,17 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 
+  testImplementation("io.mockk:mockk:1.10.0")
+  testImplementation("com.ninja-squad:springmockk:2.0.1")
+
 //  implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 //	runtimeOnly("io.r2dbc:r2dbc-postgresql")
 //	runtimeOnly("org.postgresql:postgresql")
 
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-test") {
+    exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    exclude(module = "mockito-core")
+  }
   testImplementation("io.projectreactor:reactor-test")
 }
 

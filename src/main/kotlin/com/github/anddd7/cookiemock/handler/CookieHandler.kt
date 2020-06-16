@@ -22,7 +22,7 @@ class CookieHandler(
     CookieService(cookieRepository)
   }
 
-  suspend fun getById(request: ServerRequest): ServerResponse {
+  suspend fun get(request: ServerRequest): ServerResponse {
     val uuid = UUID.fromString(request.pathVariable("id"))
     val cookieBox = cookieService.getById(uuid)
     return ok().bodyValueAndAwait(cookieBox)

@@ -2,6 +2,7 @@ package com.github.anddd7.cookiemock.persistent
 
 import com.github.anddd7.cookiemock.domain.Cookie
 import com.github.anddd7.cookiemock.domain.CookieRepository
+import com.github.anddd7.cookiemock.perimission.PermissionService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.springframework.http.HttpStatus
@@ -12,6 +13,11 @@ import java.util.concurrent.ConcurrentHashMap
 
 @Repository
 class CookieMemoryRepoImpl : CookieRepository {
+
+  /**
+   * modify query condition for specific operation and user
+   */
+  private val permissionService = PermissionService()
   private val db = ConcurrentHashMap<UUID, Cookie>()
 
   override suspend fun save(cookie: Cookie): Cookie {

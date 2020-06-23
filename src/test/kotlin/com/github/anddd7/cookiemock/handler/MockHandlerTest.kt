@@ -1,14 +1,13 @@
 package com.github.anddd7.cookiemock.handler
 
 import com.github.anddd7.cookiemock.domain.Case
+import com.github.anddd7.cookiemock.domain.Condition
 import com.github.anddd7.cookiemock.domain.Cookie
 import com.github.anddd7.cookiemock.domain.CookieRepository
-import com.github.anddd7.cookiemock.util.RequestPredicateUtil
+import com.github.anddd7.cookiemock.domain.Target
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
-import io.mockk.every
-import io.mockk.mockkObject
 import kotlinx.coroutines.flow.flowOf
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -19,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpMethod
 import org.springframework.test.web.reactive.server.WebTestClient
-import org.springframework.web.reactive.function.server.RequestPredicate
 import java.util.UUID
 
 @SpringBootTest
@@ -43,17 +41,26 @@ internal class MockHandlerTest {
       cases = listOf(
         Case(
           name = "return products which id is less than 10",
-          condition = "id < 10",
+          condition = Condition(
+            target = Target.PathVariable,
+            pattern = "id < 10"
+          ),
           body = "{\"message\":\"id < 10\"}"
         ),
         Case(
           name = "return products which id is less than 100",
-          condition = "id < 100",
+          condition = Condition(
+            target = Target.PathVariable,
+            pattern = "id < 100"
+          ),
           body = "{\"message\":\"id < 100\"}"
         ),
         Case(
           name = "return products which id is less than 1000",
-          condition = "id < 1000",
+          condition = Condition(
+            target = Target.PathVariable,
+            pattern = "id < 1000"
+          ),
           body = "{\"message\":\"id < 1000\"}"
         )
       )
@@ -62,16 +69,6 @@ internal class MockHandlerTest {
     @BeforeEach
     internal fun setUp() {
       coEvery { cookieRepository.getByBoxId(boxId) } returns flowOf(cookie)
-      mockkObject(RequestPredicateUtil)
-      every { RequestPredicateUtil.build("id < 10") } returns RequestPredicate {
-        it.pathVariable("id").toLong() < 10
-      }
-      every { RequestPredicateUtil.build("id < 100") } returns RequestPredicate {
-        it.pathVariable("id").toLong() < 100
-      }
-      every { RequestPredicateUtil.build("id < 1000") } returns RequestPredicate {
-        it.pathVariable("id").toLong() < 1000
-      }
     }
 
     @AfterEach

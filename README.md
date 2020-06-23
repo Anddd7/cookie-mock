@@ -19,6 +19,6 @@ the platform to mock every thing you want
 ## next...
 
 - [x] write some test to verify service/endpoint/cases works well
-- find a way to parse condition easily
+- [x] find a way to parse condition easily
 - build basic ui for this
 - add authorization and acl logic

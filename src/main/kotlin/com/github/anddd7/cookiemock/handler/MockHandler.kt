@@ -5,6 +5,7 @@ import com.github.anddd7.cookiemock.util.RequestPredicateUtil.build
 import kotlinx.coroutines.flow.firstOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
+import org.springframework.web.reactive.function.server.RouterFunctions
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.ok
@@ -17,6 +18,8 @@ class MockHandler(private val cookieRepository: CookieRepository) {
 
   suspend fun route(request: ServerRequest): ServerResponse {
     val boxId = request.pathVariable("boxId")
+    request.clearMatchingPattern()
+
     val body = cookieRepository.getByBoxId(UUID.fromString(boxId))
       .firstOrNull { build("/mock/${boxId}", it).test(request) }
       ?.cases
@@ -25,5 +28,9 @@ class MockHandler(private val cookieRepository: CookieRepository) {
       ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
     return ok().bodyValueAndAwait(body)
+  }
+
+  private fun ServerRequest.clearMatchingPattern() {
+    attributes().remove(RouterFunctions.MATCHING_PATTERN_ATTRIBUTE)
   }
 }
